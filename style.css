@@ -18,6 +18,7 @@
 /* * LAYOUT */
 body {
 	background-color: var(--body-bg);
+
 	color: var(--color-secondary);
 	font-size: 2rem;
 	font-family: "Open Sans", sans-serif;
@@ -58,7 +59,6 @@ body {
 	display: grid;
 	place-items: center;
 	aspect-ratio: 1;
-	/* border-radius: 100%; */
 }
 
 /* * COLORS */
@@ -80,9 +80,14 @@ body {
 
 .input {
 	font-size: 4rem;
+	height: 6rem;
 }
 
 /* * BUTTONS */
+
+.button {
+	cursor: pointer;
+}
 
 .button[data-button="="] > div {
 	color: var(--color-secondary);
@@ -93,4 +98,16 @@ body {
 	display: grid;
 	place-items: center;
 	box-shadow: 3px 5px 10px 3px hsla(var(--color-accent-raw), 0.5);
+}
+
+/* .button[data-button="backspace"] {
+} */
+
+.button:hover,
+.button:active {
+	filter: brightness(50%);
+}
+
+.button[data-button="backspace"] svg {
+	fill: var(--color-accent);
 }
