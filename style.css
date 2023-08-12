@@ -38,9 +38,8 @@ body {
 
 .calculator-content {
 	padding: 10% 10%;
-	height: 100%;
 	display: grid;
-	grid-template-rows: 2fr 3fr;
+	grid-template-rows: 2fr 5fr;
 }
 
 .flex-end-flow {
@@ -71,16 +70,22 @@ body {
 
 .display {
 	border-bottom: 2px solid var(--color-accent);
+	overflow: hidden;
 }
 
 .calculation {
 	font-size: 1rem;
 	font-weight: 500;
+	text-align: right;
+	max-width: 35ch;
+	max-height: 3em;
+	overflow: hidden;
 }
 
 .input {
 	font-size: 4rem;
-	height: 6rem;
+	height: 5.5rem;
+	max-width: 8ch;
 }
 
 /* * BUTTONS */
