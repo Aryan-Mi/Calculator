@@ -1,5 +1,10 @@
-let calculated = "420";
+const CALC_OPERATORS = ["+", "-", "*", "/", "%"];
+// const DECIMALS = ["1", "2", "3", "4", "5", "6", "7", "9", "0", "."];
+
+let calculation = "";
 let input = "0";
+// const includesOperator = CALC_OPERATORS.includes(calculation.slice(-1));
+let operatorMode = false;
 
 const buttons = document.querySelectorAll(".button");
 const inputSpan = document.querySelector(".input > span");
@@ -9,7 +14,7 @@ buttons.forEach((button) =>
 	button.addEventListener("click", () => {
 		handleButton(button.attributes["data-button"].value);
 		updateInputSpan();
-
+		updateCalcSpan();
 		// calculated = input.trim();
 		// calcSpan.textContent = calculated;
 		// input = button.textContent;
@@ -37,14 +42,22 @@ function handleButton(buttonValue) {
 		case "backspace":
 			handleBackSpace();
 			break;
+		case "+/-":
+			handleSignChange();
+			break;
+		case "+":
+			handleOperators(buttonValue);
+			break;
 		default:
 			break;
 	}
+	if (operatorMode && (!isNaN(buttonValue) || buttonValue === "."))
+		operatorMode = false;
 }
 
 // ! BUTTON HANDLERS
 function handleNumbers(number) {
-	if (Number(input) === 0 || input === "" || isNaN(input)) {
+	if (Number(input) === 0 || operatorMode || input === "" || isNaN(input)) {
 		input = number;
 	} else if (input.length < 16 && input < Number.MAX_SAFE_INTEGER)
 		input += number;
@@ -52,17 +65,33 @@ function handleNumbers(number) {
 }
 
 function handleDecimal() {
-	console.log(input);
-	if (input === "" || isNaN(input)) {
-		console.log("inside", input, inputSpan.textContent);
+	if (operatorMode || input === "" || isNaN(input)) {
 		input = "0.";
-	} else {
-		input += !input.includes(".") ? "." : "";
+		return;
 	}
+
+	input += !input.includes(".") ? "." : "";
 }
 
 function handleBackSpace() {
 	input = input.slice(0, -1);
+}
+
+function handleOperators(operator) {
+	if (operatorMode) {
+		calculation = calculation.slice(0, -1) + operator;
+		return;
+	}
+
+	if (calculation.length !== 0) {
+		const calcArray = calculation.split(" ");
+		// const currentOperator = calcArray[1];
+		input = add(calcArray[0], input);
+	}
+
+	console.log(operator, calculation);
+	calculation = `${input} ${operator}`;
+	operatorMode = true;
 }
 
 function handleSignChange() {
@@ -73,7 +102,7 @@ function evalInput() {}
 
 // Calculate methods
 function add(a, b) {
-	return a + b;
+	return (Number(a) + Number(b)).toString();
 }
 function subtract(a, b) {
 	return a - b;
@@ -103,4 +132,16 @@ function updateInputSpan() {
 
 	// Trim input from left if longer than max-width = 8ch
 	inputSpan.textContent = `${input}`.substring(len - 8);
+}
+
+function updateCalcSpan() {
+	const len = calculation.length;
+
+	if (len < 70) {
+		calcSpan.textContent = calculation;
+		return;
+	}
+
+	// Trim calculation from left if longer than 70ch
+	inputSpan.textContent = `${calculation}`.substring(len - 70);
 }
