@@ -113,6 +113,6 @@ body {
 	filter: brightness(50%);
 }
 
-.button[data-button="backspace"] svg {
+.button[data-button="Backspace"] svg {
 	fill: var(--color-accent);
 }
