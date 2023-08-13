@@ -50,6 +50,7 @@ body {
 }
 
 .buttons {
+	margin-top: 5px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 }
@@ -58,6 +59,7 @@ body {
 	display: grid;
 	place-items: center;
 	aspect-ratio: 1;
+	cursor: pointer;
 }
 
 /* * COLORS */
@@ -74,7 +76,7 @@ body {
 }
 
 .calculation {
-	font-size: 1rem;
+	font-size: 1.2rem;
 	font-weight: 500;
 	text-align: right;
 	max-width: 35ch;
@@ -90,30 +92,84 @@ body {
 
 /* * BUTTONS */
 
-.button {
-	cursor: pointer;
-	transition: 200ms linear;
+.eval-button-wrapper {
+	display: grid;
+	place-items: center;
 }
-
-.button[data-button="="] > div {
+.button[data-button="="] {
 	color: var(--color-secondary);
 	width: 65%;
 	aspect-ratio: 1;
 	border-radius: 50%;
 	background-color: var(--color-accent);
 	display: grid;
-	place-items: center;
 	box-shadow: 3px 5px 10px 3px hsla(var(--color-accent-raw), 0.5);
+	transition: 100ms ease-in-out;
 }
 
-/* .button[data-button="backspace"] {
+.button[data-button="Backspace"] {
+	fill: var(--color-accent);
+}
+
+/* * BUTTON EFFECTS */
+
+/* ? PRIMARY HOVER/ACTIVE */
+.button-primary {
+	transition: 50ms ease-in;
+}
+.button-primary:hover,
+.button-primary:active {
+	border-radius: 1rem;
+	background-color: hsl(39, 100%, 49%, 50%);
+}
+.button-primary:active {
+	background-color: hsl(39, 100%, 49%, 100%);
+	box-shadow: inset 0 0 10px hsl(39, 100%, 36%, 60%);
+}
+
+/* ? SECONDARY HOVER/ACTIVE */
+.button-secondary {
+	transition: 100ms ease-in;
+}
+.button-secondary:hover,
+.button-secondary:active {
+	border-radius: 1rem;
+	background-color: hsla(var(--color-accent-raw), 0.2);
+}
+.button-secondary:active {
+	background-color: hsla(var(--color-accent-raw), 1);
+	color: var(--color-secondary);
+	box-shadow: inset 0 0 10px hsl(0, 0%, 0%, 30%);
+}
+
+/* ? CUSTOM BUTTON HOVER/ACTIVE */
+.button[data-button="Backspace"]:hover {
+	fill: rgba(0, 0, 0, 70%);
+}
+.button[data-button="Backspace"]:active {
+	fill: rgba(0, 0, 0, 80%);
+}
+#backspace-svg {
+	fill: inherit;
+}
+
+.button[data-button="="]:hover {
+	width: 75%;
+	scale: 1.1;
+	box-shadow: none;
+	/* background-color: hsla(var(--color-accent-raw), 0.8); */
+}
+.button[data-button="="]:active {
+	/* background-color: none; */
+}
+/* .button[data-button="="] > div:hover {
 } */
 
-.button:hover,
-.button:active {
-	filter: brightness(50%);
-}
+.button[data-button="="]:active {
+	/* background-color: var(--color-secondary); */
+	background-color: transparent;
+	color: var(--color-accent);
+	box-shadow: inset 0 0 20px hsla(var(--color-accent-raw), 0.8);
 
-.button[data-button="Backspace"] svg {
-	fill: var(--color-accent);
+	/* background-color: black; */
 }

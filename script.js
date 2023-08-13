@@ -72,7 +72,7 @@ function handleButton(buttonValue) {
 
 // ! BUTTON HANDLERS
 function handleNumbers(number) {
-	if (Number(input) === 0 || operatorMode || input === "" || isNaN(input)) {
+	if (input === "0" || operatorMode || input === "" || isNaN(input)) {
 		input = number;
 	} else if (input.length < 16 && input < Number.MAX_SAFE_INTEGER)
 		input += number;
