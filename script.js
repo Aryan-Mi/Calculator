@@ -1,4 +1,3 @@
-// const CALC_OPERATORS = ["+", "-", "*", "/", "%"];
 const CALC_FUNCTIONS = {
 	"+": (a, b) => `${Number(a) + Number(b)}`,
 	"-": (a, b) => `${Number(a) - Number(b)}`,
@@ -7,23 +6,23 @@ const CALC_FUNCTIONS = {
 	"%": (a, b) => `${Number(a) % Number(b)}`,
 };
 
-// const DECIMALS = ["1", "2", "3", "4", "5", "6", "7", "9", "0", "."];
+const buttons = document.querySelectorAll(".button");
+const inputSpan = document.querySelector(".input > span");
+const calcSpan = document.querySelector(".calculation > span");
 
 let calculation = "";
 let input = "0";
 let operatorMode = false;
 
-const buttons = document.querySelectorAll(".button");
-const inputSpan = document.querySelector(".input > span");
-const calcSpan = document.querySelector(".calculation > span");
-
 buttons.forEach((button) =>
-	button.addEventListener("click", () => {
-		handleButton(button.attributes["data-button"].value);
-		updateSpan(input, inputSpan, 8);
-		updateSpan(calculation, calcSpan, 70);
-	})
+	button.addEventListener("click", () => buttonClick(button))
 );
+
+function buttonClick(button) {
+	handleButton(button.attributes["data-button"].value);
+	updateSpan(input, inputSpan, 8);
+	updateSpan(calculation, calcSpan, 70);
+}
 
 function handleButton(buttonValue) {
 	switch (buttonValue) {
@@ -42,7 +41,7 @@ function handleButton(buttonValue) {
 		case ".":
 			handleDecimal();
 			break;
-		case "backspace":
+		case "Backspace":
 			handleBackSpace();
 			break;
 		case "+/-":
@@ -86,10 +85,6 @@ function handleDecimal() {
 	input += !input.includes(".") ? "." : "";
 }
 
-function handleBackSpace() {
-	input = input.slice(0, -1);
-}
-
 function handleOperators(operator) {
 	if (operatorMode) {
 		calculation = calculation.slice(0, -1) + operator;
@@ -99,7 +94,7 @@ function handleOperators(operator) {
 	if (calculation.length !== 0 && !calculation.includes("=")) {
 		const calcArray = calculation.split(" ");
 		// Evaluate the existing operator result then append the result plus new operator
-		input = CALC_FUNCTIONS[calcArray[1]](calcArray[0], input);
+		input = evalInput(calculation, input);
 	}
 
 	calculation = `${input} ${operator}`;
@@ -114,13 +109,16 @@ function handleEval() {
 		return;
 
 	calculation += ` ${input} =`;
-	const calcArray = calculation.split(" ");
-	input = CALC_FUNCTIONS[calcArray[1]](calcArray[0], input);
+	input = evalInput(calculation, input);
 	operatorMode = false;
 }
 
 function handleSignChange() {
 	input = input.charAt(0) === "-" ? input.slice(1) : (input = `-${input}`);
+}
+
+function handleBackSpace() {
+	input = input.slice(0, -1);
 }
 
 function clearAll() {
@@ -129,7 +127,13 @@ function clearAll() {
 	operatorMode = false;
 }
 
-function evalInput() {}
+// * Auxilary Function
+function evalInput(calculation, input) {
+	const calcArray = calculation.split(" ");
+	let eval = CALC_FUNCTIONS[calcArray[1]](calcArray[0], input);
+	if (eval.length > 8) eval = Number(eval).toExponential(2).toString();
+	return eval;
+}
 
 // * UPDATE HTML INPUTS
 function updateSpan(input, span, maxLength) {
@@ -138,3 +142,26 @@ function updateSpan(input, span, maxLength) {
 	span.textContent =
 		len < maxLength ? input : `${input}`.substring(len - maxLength);
 }
+
+// * Keyboard Support
+window.addEventListener("keydown", (event) => {
+	let key = event.key;
+	switch (key) {
+		case "Enter":
+			key = "=";
+			break;
+		case ",":
+			key = ".";
+			break;
+		case "*":
+			key = "×";
+			break;
+		case "Escape":
+			key = "C";
+			break;
+		default:
+			break;
+	}
+	const pressedButton = document.querySelector(`[data-button="${key}"]`);
+	if (pressedButton) buttonClick(pressedButton);
+});
