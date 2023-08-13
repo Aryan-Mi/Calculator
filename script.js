@@ -157,6 +157,7 @@ window.addEventListener("keydown", (event) => {
 			key = "×";
 			break;
 		case "Escape":
+		case "c":
 			key = "C";
 			break;
 		default:
