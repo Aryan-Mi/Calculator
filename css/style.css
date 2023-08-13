@@ -157,19 +157,9 @@ body {
 	width: 75%;
 	scale: 1.1;
 	box-shadow: none;
-	/* background-color: hsla(var(--color-accent-raw), 0.8); */
 }
 .button[data-button="="]:active {
-	/* background-color: none; */
-}
-/* .button[data-button="="] > div:hover {
-} */
-
-.button[data-button="="]:active {
-	/* background-color: var(--color-secondary); */
 	background-color: transparent;
 	color: var(--color-accent);
 	box-shadow: inset 0 0 20px hsla(var(--color-accent-raw), 0.8);
-
-	/* background-color: black; */
 }
