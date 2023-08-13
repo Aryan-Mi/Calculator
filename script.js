@@ -164,4 +164,5 @@ window.addEventListener("keydown", (event) => {
 	}
 	const pressedButton = document.querySelector(`[data-button="${key}"]`);
 	if (pressedButton) buttonClick(pressedButton);
+	event.preventDefault();
 });
