@@ -7,6 +7,7 @@ const CALC_FUNCTIONS = {
 };
 
 const buttons = document.querySelectorAll(".button");
+const audio = document.getElementById("audio-click");
 const inputSpan = document.querySelector(".input > span");
 const calcSpan = document.querySelector(".calculation > span");
 
@@ -22,6 +23,8 @@ function buttonClick(button) {
 	handleButton(button.attributes["data-button"].value);
 	updateSpan(input, inputSpan, 8);
 	updateSpan(calculation, calcSpan, 70);
+	audio.currentTime = 0.2;
+	audio.play();
 }
 
 function handleButton(buttonValue) {
@@ -165,5 +168,5 @@ window.addEventListener("keydown", (event) => {
 	}
 	const pressedButton = document.querySelector(`[data-button="${key}"]`);
 	if (pressedButton) buttonClick(pressedButton);
-	event.preventDefault();
+	if (key === "/") event.preventDefault();
 });
