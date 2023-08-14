@@ -6,28 +6,30 @@
 	--body-bg: #fff9f3;
 	--calculator-bg: linear-gradient(
 		150deg,
-		rgba(255, 191, 73, 1) 30%,
-		rgba(255, 181, 47, 1) 60%,
-		rgba(239, 164, 27, 1) 100%
+		hsl(0, 0%, 100%) 30%,
+		hsl(0, 100%, 99%) 80%,
+		hsl(0, 16%, 90%) 100%
 	);
 
-	--color-primary: hsl(32, 100%, 97%);
-	--color-accent: hsl(28, 75%, 33%);
-	--color-accent-raw: 28, 75%, 33%;
+	--color-primary: hsl(199, 24%, 24%);
+	--color-accent: hsl(12, 100%, 64%);
+	--color-accent-raw: 12, 100%, 64%;
 
-	--color-button-primary-raw: 39, 100%, 49%;
-	--color-primary-hover: hsl(var(--color-button-primary-raw), 50%);
-	--color-primary-active: hsl(var(--color-button-primary-raw));
-	--color-button-primary-shadow: hsl(39, 100%, 36%, 60%);
+	--color-button-primary-raw: 199, 24%, 24%;
+	--color-primary-hover: hsl(var(--color-button-primary-raw), 10%);
+	--color-primary-active: hsl(var(--color-button-primary-raw), 25%);
+	--color-button-primary-inset: hsl(199, 25%, 5%, 30%);
 
-	--color-secondary-hover: hsl(var(--color-accent-raw), 20%);
+	--color-secondary-hover: hsl(var(--color-accent-raw), 40%);
 	--color-secondary-active: var(--color-accent);
-	--color-button-secondary-shadow: hsl(0, 0%, 0%, 30%);
+	--color-button-secondary-inset: hsla(12, 100%, 29%, 40%);
 
+	--color-equal: hsl(0, 100%, 99%);
+	--color-equal-bg-active: var(--color-primary);
 	--color-equal-shadow: hsla(var(--color-accent-raw), 0.5);
-	--color-equal-active: hsla(var(--color-accent-raw), 0.8);
-	--color-backspace-hover: rgba(0, 0, 0, 70%);
-	--color-backspace-active: rgba(0, 0, 0, 80%);
+	--color-equal-active: hsla(var(--color-accent-raw), 0.2);
+	--color-backspace-hover: hsla(5, 100%, 64%);
+	--color-backspace-active: hsl(0, 100%, 58%);
 }
 
 /* * LAYOUT */
@@ -35,7 +37,6 @@ body {
 	background-color: var(--body-bg);
 
 	color: var(--color-primary);
-	font-size: 2rem;
 	font-family: "Open Sans", sans-serif;
 	font-weight: 600;
 }
@@ -44,6 +45,7 @@ body {
 	margin: 0 auto;
 	margin-top: max(2rem, 5%);
 	max-width: min(80%, 400px);
+	background-color: var(--calculator-bg);
 	background-image: var(--calculator-bg);
 	aspect-ratio: 1/1.55;
 	border-radius: 1rem;
@@ -66,6 +68,7 @@ body {
 
 .buttons {
 	margin-top: 5px;
+	font-size: 2rem;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 }
@@ -112,13 +115,13 @@ body {
 	place-items: center;
 }
 .button[data-button="="] {
-	color: var(--color-primary);
+	color: var(--color-equal, --color-primary);
 	width: 65%;
 	aspect-ratio: 1;
 	border-radius: 50%;
 	background-color: var(--color-accent);
 	display: grid;
-	box-shadow: 3px 5px 10px 3px var(--color-shadow-button);
+	box-shadow: 3px 5px 10px 3px var(--color-equal-shadow);
 	transition: 100ms ease-in-out;
 }
 
@@ -139,7 +142,7 @@ body {
 }
 .button-primary:active {
 	background-color: var(--color-primary-active);
-	box-shadow: inset 0 0 10px var(--color-button-primary-shadow);
+	box-shadow: inset 0 0 10px var(--color-button-primary-inset);
 }
 
 /* ? SECONDARY HOVER/ACTIVE */
@@ -154,7 +157,7 @@ body {
 .button-secondary:active {
 	background-color: var(--color-secondary-active);
 	color: var(--color-primary);
-	box-shadow: inset 0 0 10px var(--color-button-secondary-shadow);
+	box-shadow: inset 0 0 10px var(--color-button-secondary-inset);
 }
 
 /* ? CUSTOM BUTTON HOVER/ACTIVE */
@@ -174,7 +177,7 @@ body {
 	box-shadow: none;
 }
 .button[data-button="="]:active {
-	background-color: transparent;
+	background-color: var(--color-equal-bg-active);
 	color: var(--color-accent);
 	box-shadow: inset 0 0 20px var(--color-equal-active);
 }
@@ -197,22 +200,74 @@ body {
 	--color-button-primary-raw: 39, 100%, 49%;
 	--color-primary-hover: hsl(var(--color-button-primary-raw), 50%);
 	--color-primary-active: hsl(var(--color-button-primary-raw));
-	--color-button-primary-shadow: hsl(39, 100%, 36%, 60%);
+	--color-button-primary-inset: hsl(39, 100%, 36%, 60%);
 
 	--color-secondary-hover: hsl(var(--color-accent-raw), 20%);
 	--color-secondary-active: var(--color-accent);
-	--color-button-secondary-shadow: hsl(0, 0%, 0%, 30%);
+	--color-button-secondary-inset: hsl(0, 0%, 0%, 30%);
 
+	--color-equal-bg-active: transparent;
 	--color-equal-shadow: hsla(var(--color-accent-raw), 0.5);
 	--color-equal-active: hsla(var(--color-accent-raw), 0.8);
 	--color-backspace-hover: rgba(0, 0, 0, 70%);
 	--color-backspace-active: rgba(0, 0, 0, 80%);
 }
 
-/* #theme-light {
-}
 #theme-dark {
+	--body-bg: #fff9f3;
+	--calculator-bg: hsl(199, 24%, 23%);
+
+	--color-primary: hsl(32, 86%, 92%);
+	--color-accent: hsl(12, 100%, 64%);
+	--color-accent-raw: 12, 100%, 64%;
+
+	--color-button-primary-raw: 199, 25%, 15%;
+	--color-primary-hover: hsl(var(--color-button-primary-raw), 50%);
+	--color-primary-active: hsl(var(--color-button-primary-raw));
+	--color-button-primary-inset: hsl(199, 25%, 5%, 60%);
+
+	--color-secondary-hover: hsl(var(--color-accent-raw), 25%);
+	--color-secondary-active: var(--color-accent);
+	--color-button-secondary-inset: hsl(12, 100%, 29%);
+
+	--color-equal-bg-active: var(--color-primary);
+	--color-equal-shadow: hsla(var(--color-accent-raw), 0.4);
+	--color-equal-active: hsla(var(--color-accent-raw), 0.2);
+	--color-backspace-hover: rgba(0, 0, 0, 70%);
+	--color-backspace-active: rgba(0, 0, 0, 80%);
 }
+
+#theme-light {
+	--body-bg: #fff9f3;
+	--calculator-bg: linear-gradient(
+		150deg,
+		hsl(0, 0%, 100%) 30%,
+		hsl(0, 100%, 99%) 80%,
+		hsl(0, 16%, 90%) 100%
+	);
+
+	--color-primary: hsl(199, 24%, 24%);
+	--color-accent: hsl(12, 100%, 64%);
+	--color-accent-raw: 12, 100%, 64%;
+
+	--color-button-primary-raw: 199, 24%, 24%;
+	--color-primary-hover: hsl(var(--color-button-primary-raw), 10%);
+	--color-primary-active: hsl(var(--color-button-primary-raw), 25%);
+	--color-button-primary-inset: hsl(199, 25%, 5%, 30%);
+
+	--color-secondary-hover: hsl(var(--color-accent-raw), 40%);
+	--color-secondary-active: var(--color-accent);
+	--color-button-secondary-inset: hsla(12, 100%, 29%, 40%);
+
+	--color-equal: hsl(0, 100%, 99%);
+	--color-equal-bg-active: var(--color-primary);
+	--color-equal-shadow: hsla(var(--color-accent-raw), 0.5);
+	--color-equal-active: hsla(var(--color-accent-raw), 0.2);
+	--color-backspace-hover: hsla(5, 100%, 64%);
+	--color-backspace-active: hsl(0, 100%, 58%);
+}
+
+/*
 #theme-red {
 }
 #theme-beige {
