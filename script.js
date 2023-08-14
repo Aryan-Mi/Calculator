@@ -10,6 +10,7 @@ const buttons = document.querySelectorAll(".button");
 const audio = document.getElementById("audio-click");
 const inputSpan = document.querySelector(".input > span");
 const calcSpan = document.querySelector(".calculation > span");
+const colorThemes = document.querySelectorAll('[name="theme"]');
 
 let calculation = "";
 let input = "0";
@@ -95,7 +96,6 @@ function handleOperators(operator) {
 	}
 
 	if (calculation.length !== 0 && !calculation.includes("=")) {
-		const calcArray = calculation.split(" ");
 		// Evaluate the existing operator result then append the result plus new operator
 		input = evalInput(calculation, input);
 	}
@@ -103,10 +103,11 @@ function handleOperators(operator) {
 	calculation = `${input} ${operator}`;
 	operatorMode = true;
 }
-
+// TODO: Stop eval button from triggering after a calculation
 function handleEval() {
 	if (
 		operatorMode ||
+		calculation.includes("=") ||
 		!Object.keys(CALC_FUNCTIONS).some((value) => calculation.includes(value))
 	)
 		return;
@@ -170,3 +171,34 @@ window.addEventListener("keydown", (event) => {
 	if (pressedButton) buttonClick(pressedButton);
 	if (key === "/") event.preventDefault();
 });
+
+// ! APPEARANCE THEMES
+
+const storeTheme = function (theme) {
+	localStorage.setItem("theme", theme);
+};
+
+colorThemes.forEach((theme) =>
+	theme.addEventListener("click", () => {
+		const newThemeClass = `theme-${theme.id}`;
+		if (!document.body.classList.contains(newThemeClass)) {
+			storeTheme(theme.id);
+			document.body.classList = newThemeClass;
+		}
+	})
+);
+
+function setTheme() {
+	const activeTheme = localStorage.getItem("theme");
+	if (activeTheme === "") {
+		document.body.classList = "theme-light";
+		const defaultOption = document.getElementById("light");
+		defaultOption.checked = true;
+		console.log("Inside", activeTheme);
+		return;
+	}
+	colorThemes.forEach((theme) => (theme.cheked = theme.id === activeTheme));
+	document.body.classList = `theme-${activeTheme}`;
+}
+
+document.onload = setTheme();

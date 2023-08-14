@@ -8,7 +8,20 @@
 		<script src="script.js" defer></script>
 		<title>Calculator</title>
 	</head>
-	<body>
+	<body class="">
+		<form class="appearance-picker" action="">
+			<fieldset>
+				<legend class="visually-hidden">Choose appearance theme</legend>
+				<label for="light" class="visually-hidden">Light</label>
+				<input type="radio" name="theme" id="light" checked />
+
+				<label for="orange" class="visually-hidden">Orange</label>
+				<input type="radio" name="theme" id="orange" />
+
+				<label for="dark" class="visually-hidden">Dark</label>
+				<input type="radio" name="theme" id="dark" />
+			</fieldset>
+		</form>
 		<div class="calculator">
 			<div class="calculator-content">
 				<div class="display flex-end-flow">

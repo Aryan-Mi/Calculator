@@ -2,48 +2,22 @@
 
 /* * VARIABLES */
 
-:root {
+/* :root {
 	--body-bg: #fff9f3;
-	--calculator-bg: linear-gradient(
-		150deg,
-		hsl(0, 0%, 100%) 30%,
-		hsl(0, 100%, 99%) 80%,
-		hsl(0, 16%, 90%) 100%
-	);
-
-	--color-primary: hsl(199, 24%, 24%);
-	--color-accent: hsl(12, 100%, 64%);
-	--color-accent-raw: 12, 100%, 64%;
-
-	--color-button-primary-raw: 199, 24%, 24%;
-	--color-primary-hover: hsl(var(--color-button-primary-raw), 10%);
-	--color-primary-active: hsl(var(--color-button-primary-raw), 25%);
-	--color-button-primary-inset: hsl(199, 25%, 5%, 30%);
-
-	--color-secondary-hover: hsl(var(--color-accent-raw), 40%);
-	--color-secondary-active: var(--color-accent);
-	--color-button-secondary-inset: hsla(12, 100%, 29%, 40%);
-
-	--color-equal: hsl(0, 100%, 99%);
-	--color-equal-bg-active: var(--color-primary);
-	--color-equal-shadow: hsla(var(--color-accent-raw), 0.5);
-	--color-equal-active: hsla(var(--color-accent-raw), 0.2);
-	--color-backspace-hover: hsla(5, 100%, 64%);
-	--color-backspace-active: hsl(0, 100%, 58%);
-}
+} */
 
 /* * LAYOUT */
 body {
 	background-color: var(--body-bg);
-
 	color: var(--color-primary);
 	font-family: "Open Sans", sans-serif;
 	font-weight: 600;
+	transition: 300ms ease-in-out;
 }
 
 .calculator {
-	margin: 0 auto;
-	margin-top: max(2rem, 5%);
+	margin-inline: auto;
+	margin-block: max(2rem, 7%);
 	max-width: min(80%, 400px);
 	background-color: var(--calculator-bg);
 	background-image: var(--calculator-bg);
@@ -184,7 +158,7 @@ body {
 
 /* ! THEMES */
 
-#theme-orange {
+.theme-orange {
 	--body-bg: #fff9f3;
 	--calculator-bg: linear-gradient(
 		150deg,
@@ -213,7 +187,7 @@ body {
 	--color-backspace-active: rgba(0, 0, 0, 80%);
 }
 
-#theme-dark {
+.theme-dark {
 	--body-bg: #fff9f3;
 	--calculator-bg: hsl(199, 24%, 23%);
 
@@ -237,7 +211,7 @@ body {
 	--color-backspace-active: rgba(0, 0, 0, 80%);
 }
 
-#theme-light {
+.theme-light {
 	--body-bg: #fff9f3;
 	--calculator-bg: linear-gradient(
 		150deg,
@@ -267,10 +241,58 @@ body {
 	--color-backspace-active: hsl(0, 100%, 58%);
 }
 
-/*
+/* TODO: MISSING THEMES?
 #theme-red {
 }
 #theme-beige {
 }
 #theme-green {
 } */
+
+/* ! THEME PICKER */
+
+.visually-hidden {
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.appearance-picker > fieldset {
+	display: flex;
+	gap: 2rem;
+	width: fit-content;
+	margin-inline: auto;
+	padding: 1rem 3rem;
+	background-color: hsla(0, 100%, 90%, 0.76);
+	border: 2px solid hsl(60, 56%, 91%);
+	border-radius: 0 0 2rem 2rem;
+}
+
+.appearance-picker input[type="radio"] {
+	appearance: none;
+	width: 1.25rem;
+	aspect-ratio: 1;
+	outline: 2px solid var(--radio-color);
+	outline-offset: 2px;
+	border-radius: 50%;
+	transition: 200ms linear;
+}
+
+.appearance-picker input[type="radio"]:checked {
+	background-color: var(--radio-color);
+	border-radius: 25%;
+}
+
+input[type="radio"]#light {
+	--radio-color: rgb(255, 255, 255);
+}
+input[type="radio"]#dark {
+	--radio-color: hsl(199, 24%, 24%);
+}
+input[type="radio"]#orange {
+	--radio-color: rgba(255, 181, 47, 1);
+}
