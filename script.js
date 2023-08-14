@@ -190,7 +190,7 @@ colorThemes.forEach((theme) =>
 
 function setTheme() {
 	const activeTheme = localStorage.getItem("theme");
-	if (activeTheme === "") {
+	if (!activeTheme) {
 		document.body.classList = "theme-light";
 		const defaultOption = document.getElementById("light");
 		defaultOption.checked = true;
